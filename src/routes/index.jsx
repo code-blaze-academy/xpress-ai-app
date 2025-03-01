@@ -2,6 +2,7 @@
 
 import { BrowserRouter as Router, Routes , Route } from "react-router-dom"
 import { Signup } from "../pages/auth/SignUp";
+import Login from "../pages/auth/Login";
 
 // import Home from "../portal/pages/Home";
 
@@ -13,6 +14,7 @@ return (
         {/* <Route path="/" element ={<} /> */}
         {/* <Route path="/" element={<Login />} /> */}
         <Route path="/" element={<Signup />} />
+        <Route path="/login" element={<Login/>} />
 
         
         
