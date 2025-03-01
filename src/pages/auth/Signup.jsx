@@ -80,11 +80,11 @@ export const Signup = ()  => {
 
             <Divider my={"32px"}/>
 
-            <FormControl id="email" isRequired>
+            <FormControl id="email">
               <FormLabel>Email address</FormLabel>
               <Input type="email" />
             </FormControl>
-            <FormControl id="password" isRequired>
+            <FormControl id="password">
               <FormLabel>Password</FormLabel>
               <InputGroup>
                 <Input type={showPassword ? 'text' : 'password'} />

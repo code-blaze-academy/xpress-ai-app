@@ -2,7 +2,8 @@
 
 import { BrowserRouter as Router, Routes , Route } from "react-router-dom"
 import { Signup } from "../pages/auth/SignUp";
-import Login from "../pages/auth/Login";
+import { Login } from "../pages/auth/Login";
+
 
 // import Home from "../portal/pages/Home";
 
