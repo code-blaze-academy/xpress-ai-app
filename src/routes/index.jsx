@@ -1,13 +1,13 @@
 
 
 import { BrowserRouter as Router, Routes , Route } from "react-router-dom"
-import { Signup } from "../pages/auth/SignUp";
+import { Signup } from "../pages/auth/Signup";
 import { Login } from "../pages/auth/Login";
 
 
 // import Home from "../portal/pages/Home";
 
-const Index  =  () => {
+const IndexRoute  =  () => {
 return (
  <Router>
     <Routes>
@@ -26,4 +26,4 @@ return (
 )
 }
 
-export default Index;
+export default IndexRoute;
