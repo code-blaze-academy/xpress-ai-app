@@ -3,6 +3,7 @@
 import { BrowserRouter as Router, Routes , Route } from "react-router-dom"
 import { Signup } from "../pages/auth/Signup";
 import { Login } from "../pages/auth/Login";
+import Index from "../pages/home";
 
 
 // import Home from "../portal/pages/Home";
@@ -14,7 +15,8 @@ return (
         {/* AUTH ROUTES */}
         {/* <Route path="/" element ={<} /> */}
         {/* <Route path="/" element={<Login />} /> */}
-        <Route path="/" element={<Signup />} />
+        <Route path="/" element={<Index />} />
+        <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login/>} />
 
         

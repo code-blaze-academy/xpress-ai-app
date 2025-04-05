@@ -6,14 +6,15 @@ import theme from "./theme"
 
 const App = () => {
 
-  const queryClient = new QueryClient({
-    defaultOptions:{
-      queries:{
-        staleTime:Infinity,
-        cacheTime:Infinity
-      }
-    }
-  })
+  // const queryClient = new QueryClient({
+  //   defaultOptions:{
+  //     queries:{
+  //       staleTime:Infinity,
+  //       cacheTime:Infinity
+  //     }
+  //   }
+  // })
+  const queryClient = new QueryClient();
 
   return (
      <QueryClientProvider client={queryClient}>

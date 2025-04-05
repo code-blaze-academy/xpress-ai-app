@@ -119,7 +119,7 @@ export const Login = ()  => {
              </Stack>
             <Stack pt={6}>
               <Text align={'center'}>
-                Do not have an account ? <Text color={'blue.400'} as={RouterLink} to="/">Signup</Text>
+                Do not have an account ? <Text color={'blue.400'} as={RouterLink} to="/register">Signup</Text>
               </Text>
             </Stack>
           </Stack>
