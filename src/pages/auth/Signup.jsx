@@ -25,6 +25,7 @@ import { FaApple } from 'react-icons/fa'
 
 export const Signup = ()  => {
   const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   return (
     <Flex
@@ -65,34 +66,51 @@ export const Signup = ()  => {
              Continue with Google
            </Button>
 
-           <Button
+           {/* <Button
                leftIcon={<FaApple/>}
                borderRadius="8px"
                 border="1px solid rgba(158, 158, 158, 0.20)"
-              //  border="1px solid rgba(158, 158, 158, 0.20)"
-              _hover={{
-              // bgGradient: "linear(to-r, #173685 0%, rgba(23, 54, 133, 0.70) 50%, #718517 100%)",
-              }}
               >
              Continue with Apple
-           </Button>
+           </Button> */}
             </Stack>
 
             <Divider my={"32px"}/>
 
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input type="email" placeholder='Enter your email' />
             </FormControl>
+
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input 
+                type={showPassword ? 'text' : 'password'}
+                placeholder='Enter your password'
+                 />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
                     onClick={() => setShowPassword((showPassword) => !showPassword)}>
                     {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+
+            <FormControl id="confirmPassword">
+              <FormLabel>Confirm Password</FormLabel>
+              <InputGroup>
+                <Input 
+                type={showConfirmPassword ? 'text' : 'password'}
+                placeholder='Enter Confirm password'
+                 />
+                <InputRightElement h={'full'}>
+                  <Button
+                    variant={'ghost'}
+                    onClick={() => setShowConfirmPassword((showConfirmPassword) => !showConfirmPassword)}>
+                    {showConfirmPassword ? <ViewIcon /> : <ViewOffIcon />}
                   </Button>
                 </InputRightElement>
               </InputGroup>

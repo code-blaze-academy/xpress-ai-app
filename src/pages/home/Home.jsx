@@ -4,6 +4,8 @@ import { FaArrowAltCircleDown } from "react-icons/fa"
 import { FaRProject } from "react-icons/fa6"
 import { useNavigate } from "react-router-dom"
 import VideoIcon from "../../components/assets/icons/VideoIcon"
+import Footer from "./footer/Footer"
+import PricingSection from "../../components/home/PricingSection"
 
 const Home = () => {
     const navigate = useNavigate();
@@ -25,6 +27,8 @@ const Home = () => {
          mx={"auto"}
          padding={"10px 20px"}
        />
+       <PricingSection/>
+       <Footer/>
     </Box>
   )
 }

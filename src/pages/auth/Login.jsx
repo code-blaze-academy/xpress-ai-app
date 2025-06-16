@@ -22,6 +22,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import XpressAiLogo from '../../assets/icons/XpressAiLogo'
 import { FcGoogle } from 'react-icons/fc'
 import { FaApple } from 'react-icons/fa'
+import GoogleAuth from './GoogleAuth'
 
 export const Login = ()  => {
   const [showPassword, setShowPassword] = useState(false)
@@ -53,7 +54,7 @@ export const Login = ()  => {
           p={8}>
           <Stack spacing={4}>
           <Stack spacing={4} pt={2}>
-            <Button
+            {/* <Button
                leftIcon={<FcGoogle/>}
                borderRadius="8px"
                 border="1px solid rgba(158, 158, 158, 0.20)"
@@ -63,9 +64,10 @@ export const Login = ()  => {
               }}
               >
              Continue with Google
-           </Button>
+           </Button> */}
+           <GoogleAuth/>
 
-           <Button
+           {/* <Button
                leftIcon={<FaApple/>}
                borderRadius="8px"
                 border="1px solid rgba(158, 158, 158, 0.20)"
@@ -75,7 +77,7 @@ export const Login = ()  => {
               }}
               >
              Continue with Apple
-           </Button>
+           </Button> */}
             </Stack>
 
             <Divider my={"32px"}/>
