@@ -11,6 +11,7 @@ import {
     Flex,
   } from '@chakra-ui/react';
   import CustomButton from '../CustomButton';
+import { useNavigate } from 'react-router-dom';
   
   const plans = [
     {
@@ -39,6 +40,12 @@ import {
   
   const PricingSection = () => {
     const planCardBg = useColorModeValue('white', '#0f121c');
+    const navigate = useNavigate();
+
+
+    const handleNavigate = () => {
+        navigate("/register");
+       };
   
     return (
       <Box py={10} px={4} bg={useColorModeValue('gray.50', '#0f121c')}>
@@ -101,6 +108,7 @@ import {
                   padding="10px 20px"
                   mx="auto"
                   w="full"
+                  onClick={handleNavigate}
                 />
               </Box>
             </Flex>
