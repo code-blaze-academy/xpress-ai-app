@@ -8,6 +8,7 @@ import Footer from "./footer/Footer"
 import PricingSection from "../../components/home/PricingSection"
 import AvailableResources from "../../components/home/AvailableResources"
 import TypingIndicator from "../../components/home/TypingIndicator"
+import NavBar from "./header/NavBar"
 
 const Home = () => {
     // const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Home = () => {
 
   return (
     <Box>
+       <NavBar/>
        <TypingIndicator/>
        {/* <Text textAlign={"center"} mb={"2rem"}>Welcome to home page</Text>  */}
        {/* <CustomButton 

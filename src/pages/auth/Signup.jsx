@@ -19,9 +19,10 @@ import {
 import { useState } from 'react'
 import { Link as RouterLink } from "react-router-dom"
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import XpressAiLogo from '../../assets/icons/XpressAiLogo'
+// import XpressAiLogo from '../../assets/icons/XpressAiLogo'
 import { FcGoogle } from 'react-icons/fc'
 import { FaApple } from 'react-icons/fa'
+import XpressAiLogo from '../../assets/icons/XpressAiLogo'
 
 export const Signup = ()  => {
   const [showPassword, setShowPassword] = useState(false)

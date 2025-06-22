@@ -102,7 +102,7 @@ const TypingIndicator = () => {
              fontWeight={"600"}
              mx={"auto"}
              padding={"10px 20px"}
-             marginBottom={"236px"}
+             marginBottom={{base:"96px",lg:"236px"}}
             />
           </Stack>
         </Stack>
