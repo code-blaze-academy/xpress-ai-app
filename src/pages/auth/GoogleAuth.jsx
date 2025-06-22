@@ -20,6 +20,9 @@ const GoogleAuth = () => {
 
  
   useEffect(() => {
+  //only fetch if we have an access token
+  if(!user?.access_token) return;
+         
    const fetchUserDetails = async() => {
     const config = {
         headers:{
@@ -28,7 +31,7 @@ const GoogleAuth = () => {
         }
        }
       try{
-        setLoading(true)
+        setLoading(true);
         if(user){
             const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user?.access_token}`,
             config
@@ -56,11 +59,8 @@ const GoogleAuth = () => {
     leftIcon={loading ? <Spinner size="sm" /> : <FcGoogle />}
     borderRadius="8px"
     onClick={() => login()}
-    // onClick={(e) => {
-    //  e.preventDefault();
-    //  login();
-    //   }}
-     border="1px solid rgba(158, 158, 158, 0.20)"
+    loadingText="Loading..."
+    border="1px solid rgba(158, 158, 158, 0.20)"
    //  border="1px solid rgba(158, 158, 158, 0.20)"
    _hover={{
    // bgGradient: "linear(to-r, #173685 0%, rgba(23, 54, 133, 0.70) 50%, #718517 100%)",

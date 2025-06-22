@@ -81,6 +81,7 @@ import CustomButton from '../../../components/CustomButton';
              borderRadius={"full"}
              fontWeight="500"
              display={{ base: 'none', md: 'inline-flex' }} 
+             as={RouterLink} to={"/register"}
             />
           </Stack>
 
@@ -185,6 +186,7 @@ import CustomButton from '../../../components/CustomButton';
              title="Sign Up"
              borderRadius={"full"}
              fontWeight="500"
+             as={RouterLink} to={"/register"}
         />
       </Stack>
     );
@@ -199,8 +201,8 @@ import CustomButton from '../../../components/CustomButton';
         py={2}
         paddingLeft={"2rem"} 
          mb={"1rem"} 
-         as={href === "signup" ? RouterLink : "a"} 
-         {...(href === "signup" ? { to: href } : { href })} 
+         as={href === "register" ? RouterLink : "a"} 
+         {...(href === "register" ? { to: href } : { href })} 
          justifyContent="space-between" alignItems="center" 
          _hover={{ textDecoration: 'none' }}>
           <Text fontWeight="600"  color={useColorModeValue('gray.600', 'gray.200')}>

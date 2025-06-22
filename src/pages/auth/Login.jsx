@@ -39,13 +39,10 @@ export const Login = ()  => {
       mx={'auto'} 
       w={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading display={"flex"} alignItems={"center"} fontSize={'4xl'} textAlign={'center'}>
+          <Heading as={RouterLink} to={"/"} display={"flex"} alignItems={"center"} fontSize={'4xl'} textAlign={'center'}>
             <XpressAiLogo/>
             press AI
           </Heading>
-          {/* <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool features ✌️
-          </Text> */}
         </Stack>
         <Box
           rounded={'lg'}
@@ -54,17 +51,7 @@ export const Login = ()  => {
           p={8}>
           <Stack spacing={4}>
           <Stack spacing={4} pt={2}>
-            {/* <Button
-               leftIcon={<FcGoogle/>}
-               borderRadius="8px"
-                border="1px solid rgba(158, 158, 158, 0.20)"
-              //  border="1px solid rgba(158, 158, 158, 0.20)"
-              _hover={{
-              // bgGradient: "linear(to-r, #173685 0%, rgba(23, 54, 133, 0.70) 50%, #718517 100%)",
-              }}
-              >
-             Continue with Google
-           </Button> */}
+           
            <GoogleAuth/>
 
            {/* <Button

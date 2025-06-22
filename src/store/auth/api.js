@@ -10,7 +10,7 @@ export const axiosInstancePrivate = axios.create({
       },
   });
 
-
+ 
 
 //AUTH APIS
 export const loginAuth = async(credentials) => {
