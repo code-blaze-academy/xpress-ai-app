@@ -80,7 +80,7 @@ const TypingIndicator = () => {
           <Text 
           as="div"
           fontSize={{base:"12px", sm:"16px", md:"20px"}} 
-          color={useColorModeValue("gray.500",'#908686')}>
+          color={useColorModeValue("gray.500",'gray.50')}>
             Xpress Learner AI is your personalized learning companion, creating structured and live AI-generated video lessons tailored to your needs.
           </Text>
           <Stack
@@ -95,28 +95,15 @@ const TypingIndicator = () => {
              onClick={handleTryForFree}
              borderRadius={"full"}
              display={"flex"}
+             width={"249px"}
+             justifyContent={"center"}
+             height={"53px"}
+             fontSize={"20px"}
+             fontWeight={"600"}
              mx={"auto"}
              padding={"10px 20px"}
+             marginBottom={"236px"}
             />
-            {/* <Box>
-              <Icon
-                as={Arrow}
-                color={useColorModeValue('gray.800', 'gray.300')}
-                w={71}
-                position={'absolute'}
-                right={-71}
-                top={'10px'}
-              />
-              <Text
-                fontSize={'lg'}
-                fontFamily={'Caveat'}
-                position={'absolute'}
-                right={'-125px'}
-                top={'-15px'}
-                transform={'rotate(10deg)'}>
-                Starting at $15/mo
-              </Text>
-            </Box> */}
           </Stack>
         </Stack>
       </Container>
