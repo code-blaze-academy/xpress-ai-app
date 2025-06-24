@@ -52,7 +52,7 @@ export const Login = ()  => {
           <Stack spacing={4}>
           <Stack spacing={4} pt={2}>
            
-           <GoogleAuth/>
+           <GoogleAuth loadingMessage ="Signing in..."/>
 
            {/* <Button
                leftIcon={<FaApple/>}

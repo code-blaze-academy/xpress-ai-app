@@ -23,6 +23,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { FcGoogle } from 'react-icons/fc'
 import { FaApple } from 'react-icons/fa'
 import XpressAiLogo from '../../assets/icons/XpressAiLogo'
+import GoogleAuth from './GoogleAuth'
 
 export const Signup = ()  => {
   const [showPassword, setShowPassword] = useState(false)
@@ -52,17 +53,15 @@ export const Signup = ()  => {
           p={8}>
           <Stack spacing={4}>
           <Stack spacing={4} pt={2}>
-            <Button
+            {/* <Button
                leftIcon={<FcGoogle/>}
                borderRadius="8px"
                 border="1px solid rgba(158, 158, 158, 0.20)"
-              //  border="1px solid rgba(158, 158, 158, 0.20)"
-              _hover={{
-              // bgGradient: "linear(to-r, #173685 0%, rgba(23, 54, 133, 0.70) 50%, #718517 100%)",
-              }}
               >
              Continue with Google
-           </Button>
+           </Button> */}
+
+            <GoogleAuth loadingMessage ="Signing up..."/>
 
            {/* <Button
                leftIcon={<FaApple/>}

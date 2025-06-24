@@ -3,7 +3,7 @@ import React from "react";
 
 const AvailableResources = () => {
   const headingColor = useColorModeValue("gray.800", "white");//
-  const textColor = useColorModeValue("gray.500","#908686");
+  const textColor = useColorModeValue("gray.500","gray.50");
   const borderGradient = "linear-gradient(90deg, #0b76D9, #17A128, #1E1E1E)";
   const borderColor = useColorModeValue("2px solid gray.50","2px solid #171A21")
 
@@ -69,7 +69,7 @@ const WHYCHOOSEUS_OPTIONS = [
     id: 2,
     title: "Emotion Responsive Learning",
     description:
-      "Xpress learner can detect user gestures and emotions to adapt its responses.",
+      "Xpress AI can detect user gestures and emotions to adapt its responses.",
   },
   {
     id: 3,

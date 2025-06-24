@@ -1,73 +1,96 @@
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
-import { Button, Spinner } from "@chakra-ui/react";
+import { Button, Spinner, useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
+const GoogleAuth = ({ loadingMessage }) => {
+  const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+    const navigate = useNavigate(); // <== ✅ Add this
 
-
-const GoogleAuth = () => {
-  const[user, setUser] = useState([])
-  const[profile,setProfile] = useState([]);
-  const[loading, setLoading] =  useState(false)
-
-  //login function 
   const login = useGoogleLogin({
-    onSuccess : (codeResponse ) => setUser(codeResponse),
-    onError : (error) => console.log(`Login Failed ${error}`)
-  })
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.error("Login Failed:", error),
+  });
 
- 
   useEffect(() => {
-  //only fetch if we have an access token
-  if(!user?.access_token) return;
-         
-   const fetchUserDetails = async() => {
-    const config = {
-        headers:{
-           Authorization:`Bearer ${user.access_token}`,
-           Accept:"application/json"
-        }
-       }
-      try{
-        setLoading(true);
-        if(user){
-            const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user?.access_token}`,
-            config
-            );
-            const data = await response.data;
-            setProfile(data)
-           }
-      }
-      catch(error){
-        console.log(error)
-      }
-      finally{
-        setLoading(false)
-      }
-   }
+    if (!user?.access_token) return;
 
-   fetchUserDetails();
+    const fetchAndPostUserDetails = async () => {
+      setLoading(true);
+      try {
+        // Fetch user profile from Google
+        const profileRes = await axios.get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        );
 
-  },[user])
+        const profile = profileRes.data;
 
-  console.log(profile)
+        // Post user data to your backend
+        const backendRes = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/auth/google/login/`,
+          {
+            social_user_id:profile?.id,
+            email: profile?.email,
+            name: profile.name,
+            profile_image: profile?.picture,
+          }
+        );
+
+        toast({
+          title: "Login Successful",
+          description: backendRes?.data?.message || "Welcome!",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+
+        // Save user data locally
+        localStorage.setItem("user", JSON.stringify(backendRes.data));
+
+         // ✅ Redirect after success
+        navigate("/dashboard"); // Change this to your target route
+
+        // Optional redirect
+        // window.location.href = "/dashboard";
+
+      } catch (error) {
+        // console.error("Google Auth Error:", error);
+        toast({
+          title: "Login Failed",
+          description:`${error?.response?.data?.error_message }`,
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAndPostUserDetails();
+  }, [user,toast]);
 
   return (
-  <Button
-    leftIcon={loading ? <Spinner size="sm" /> : <FcGoogle />}
-    borderRadius="8px"
-    onClick={() => login()}
-    loadingText="Loading..."
-    border="1px solid rgba(158, 158, 158, 0.20)"
-   //  border="1px solid rgba(158, 158, 158, 0.20)"
-   _hover={{
-   // bgGradient: "linear(to-r, #173685 0%, rgba(23, 54, 133, 0.70) 50%, #718517 100%)",
-     }}
-   >
-    Continue with Google
-  </Button>
+    <Button
+      leftIcon={loading ? <Spinner size="sm" /> : <FcGoogle />}
+      borderRadius="8px"
+      onClick={login}
+      isLoading={loading}
+      loadingText= {loadingMessage}
+      border="1px solid rgba(158, 158, 158, 0.20)"
+    >
+      Continue with Google
+    </Button>
   );
 };
 
