@@ -9,6 +9,7 @@ const CustomButton = forwardRef(
       rightIcon,
       children,
       onClick,
+      isBgGradient= true,
       ...rest // Accepts all Button props
     },
     ref
@@ -16,11 +17,11 @@ const CustomButton = forwardRef(
     return (
       <Button
         ref={ref}
-        bgGradient="linear(to-r, #173685 0%, rgba(23, 54, 133, 0.50) 50%, #718517 100%)"
+        bgGradient={`${isBgGradient ? "linear(to-r, #173685 0%, rgba(23, 54, 133, 0.50) 50%, #718517 100%)" : null }`}
         color="white"
         _hover={{
           bgGradient:
-            "linear(to-r, #173685 0%, rgba(23, 54, 133, 0.70) 50%, #718517 100%)",
+            `${isBgGradient ? "linear(to-r, #173685 0%, rgba(23, 54, 133, 0.70) 50%, #718517 100%)" : null }`
         }}
         leftIcon={leftIcon}
         rightIcon={rightIcon}
