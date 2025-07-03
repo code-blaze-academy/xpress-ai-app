@@ -7,7 +7,7 @@ const DashboardIndex = () => {
 
     const user = JSON.parse(localStorage.getItem("user"));
   return (
-    <ChatDashboard/>
+    <ChatDashboard user={user?.data?.user}/>
   )
 }
 

@@ -32,9 +32,8 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../../components/CustomButton";
 import VideoIcon from "../../components/assets/icons/VideoIcon";
-import { FaVideo } from "react-icons/fa";
 
-export default function ChatDashboard() {
+export default function ChatDashboard({user}) {
   const { isOpen, onOpen, onClose } = useDisclosure(); // sidebar
   const {
     isOpen: isProfileOpen,
@@ -42,7 +41,6 @@ export default function ChatDashboard() {
     onClose: closeProfile,
   } = useDisclosure(); // profile modal
 
-  const [user] = useState("Dear");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -52,7 +50,6 @@ export default function ChatDashboard() {
   const inputBg = useColorModeValue("white", "gray.800");
   const borderColor = useColorModeValue("gray.200", "gray.700");
   const textColor = useColorModeValue("gray.800", "gray.100");
-  const linkTextColor = useColorModeValue("#0E47D8")
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -108,7 +105,7 @@ export default function ChatDashboard() {
         <Flex align="center" gap={2}>
           <IconButton icon={<FiShare2 />} aria-label="Share" variant="ghost" />
           <Avatar
-            name={user}
+            name={user?.email}
             size="sm"
             cursor="pointer"
             onClick={openProfile}
@@ -120,7 +117,7 @@ export default function ChatDashboard() {
       {messages.length === 0 ? (
         <Center flex="1" flexDirection="column" textAlign="center" px={4}>
           <Text fontSize="3xl" fontWeight="bold" color={textColor}>
-            Hi {user},
+            Hi {user?.email},
           </Text>
           <Text fontSize={{base:"14px",lg:"18px"}} mb={"62px"} mt={3} color={textColor}>
             Want to continue from our previous <br /> conversation or <Link className="text-[#0E47D8]">start a new chat here?</Link>
@@ -173,34 +170,34 @@ export default function ChatDashboard() {
   p="10px"
   background="#0f121c"
   h="60px"
-  w="796px"
+  w={{base:"full",lg:"796px"}}
   m="auto"
   borderRadius="full"
+  border="1px solid"
+  borderColor={"rgba(68, 68, 68, 0.22)"}
 >
   <HStack
     spacing={3}
     bg="#0f121c"
     px={4}
     borderRadius="full"
-    border="1px solid"
-    borderColor={useColorModeValue("gray.200", "gray.700")}
+    // borderColor={useColorModeValue("gray.200", "gray.700")}
     h="full"
     align="center"
     justify="space-between"
   >
     {/* Left: Video Icon */}
     <IconButton
-      icon={<FaVideo />}
+      icon={<VideoIcon strokeWidth="1.5"/>}
       aria-label="Video"
       variant="ghost"
-      size="sm"
       color="gray.400"
       _hover={{ bg: "transparent", color: "blue.400" }}
     />
 
     {/* Middle: Input field (flex-grow fills available space) */}
     <Input
-      placeholder="Type your message..."
+      placeholder="Ask Anything..."
       value={message}
       onChange={(e) => setMessage(e.target.value)}
       variant="unstyled"
@@ -218,9 +215,9 @@ export default function ChatDashboard() {
         icon={<FiPaperclip />}
         aria-label="Attach"
         variant="ghost"
-        size="sm"
-        color="gray.400"
-        _hover={{ bg: "transparent", color: "blue.400" }}
+        size="lg"
+        color={useColorModeValue("gray.700","gray.200")}
+       _hover={{ bg: "transparent", color: "blue.400" }}
       />
 
       <CustomButton
@@ -269,7 +266,7 @@ export default function ChatDashboard() {
           <ModalCloseButton />
           <ModalBody>
             <Text fontWeight="bold" mb={2} color={textColor}>Name:</Text>
-            <Text mb={4} color={textColor}>{user}</Text>
+            <Text mb={4} color={textColor}>{user?.email}</Text>
             <Text fontWeight="bold" mb={2} color={textColor}>Email:</Text>
             <Text mb={4} color={textColor}>user@example.com</Text>
           </ModalBody>
