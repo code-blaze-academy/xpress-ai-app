@@ -27,7 +27,7 @@ import {
   Spinner,
   Center,
 } from "@chakra-ui/react";
-import { FiMenu, FiShare2, FiSearch, FiSend, FiPaperclip } from "react-icons/fi";
+import { FiMenu, FiShare2, FiSearch, FiPaperclip } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../../components/CustomButton";
@@ -105,7 +105,8 @@ export default function ChatDashboard({user}) {
         <Flex align="center" gap={2}>
           <IconButton icon={<FiShare2 />} aria-label="Share" variant="ghost" />
           <Avatar
-            name={user?.email}
+            name={user?.full_name}
+            src={user?.profile_image}
             size="sm"
             cursor="pointer"
             onClick={openProfile}
@@ -117,7 +118,7 @@ export default function ChatDashboard({user}) {
       {messages.length === 0 ? (
         <Center flex="1" flexDirection="column" textAlign="center" px={4}>
           <Text fontSize="3xl" fontWeight="bold" color={textColor}>
-            Hi {user?.email},
+            Hi {user?.full_name.split(" ")[0]},
           </Text>
           <Text fontSize={{base:"14px",lg:"18px"}} mb={"62px"} mt={3} color={textColor}>
             Want to continue from our previous <br /> conversation or <Link className="text-[#0E47D8]">start a new chat here?</Link>
@@ -266,9 +267,9 @@ export default function ChatDashboard({user}) {
           <ModalCloseButton />
           <ModalBody>
             <Text fontWeight="bold" mb={2} color={textColor}>Name:</Text>
-            <Text mb={4} color={textColor}>{user?.email}</Text>
+            <Text mb={4} color={textColor}>{user?.full_name}</Text>
             <Text fontWeight="bold" mb={2} color={textColor}>Email:</Text>
-            <Text mb={4} color={textColor}>user@example.com</Text>
+            <Text mb={4} color={textColor}>{user?.email}</Text>
           </ModalBody>
           <ModalFooter>
             <Button onClick={closeProfile}>Close</Button>
