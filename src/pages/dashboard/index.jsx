@@ -5,9 +5,8 @@ import ChatDashboard from "./ChatDashboard";
 
 const DashboardIndex = () => {
 
-    const user = JSON.parse(localStorage.getItem("user"));
   return (
-    <ChatDashboard user={user?.data?.user}/>
+    <ChatDashboard />
   )
 }
 

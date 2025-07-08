@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   Divider,
   Checkbox,
+  useToast,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Link as RouterLink } from "react-router-dom"
@@ -23,10 +24,51 @@ import XpressAiLogo from '../../assets/icons/XpressAiLogo'
 import { FcGoogle } from 'react-icons/fc'
 import { FaApple } from 'react-icons/fa'
 import GoogleAuth from './GoogleAuth'
+import { useMutation } from '@tanstack/react-query'
+import { loginAuth } from '../../store/auth/api'
 
 export const Login = ()  => {
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const toast = useToast();
+    const [inputs, setInputs] = useState({
+     email: "",
+    password:""
+  });
 
+
+  const handleChange = (e) => {
+    setInputs(prev => ({...prev,[e.target.name]:e.target.value}))
+  }
+
+  // call use mutation
+  
+  const { mutate:submitLogin, isLoading } = useMutation(loginAuth,{
+    onSuccess:() => {
+
+    }
+  })
+
+   const handleSubmit = async(e) => {
+    e.preventDefault();
+    const { email, password } = inputs;
+
+  if (!email || !password) {
+    toast({
+      title: "Missing fields",
+      description: "Please fill all the necessary details.",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+    return;
+  }
+    
+    const payload = {
+      email: inputs?.email,
+      password:inputs?.password
+    }
+    submitLogin(payload)
+  }
   return (
     <Flex
       minH={'100vh'}
@@ -44,11 +86,12 @@ export const Login = ()  => {
             press AI
           </Heading>
         </Stack>
-        <Box
+          <Box
           rounded={'lg'}
           bg={useColorModeValue('white', '#0f121c')}
           boxShadow={'lg'}
           p={8}>
+            
           <Stack spacing={4}>
           <Stack spacing={4} pt={2}>
            
@@ -71,12 +114,22 @@ export const Login = ()  => {
 
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input 
+              type="email" 
+              name="email" 
+              value={inputs?.email}
+              onChange={handleChange}
+              />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input 
+                type={showPassword ? 'text' : 'password'} 
+                name="password" 
+                onChange={handleChange} 
+                value={inputs?.password}
+                />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -102,6 +155,8 @@ export const Login = ()  => {
              _hover={{
              bgGradient: "linear(to-r, #173685 0%, rgba(23, 54, 133, 0.70) 50%, #718517 100%)",
              }}
+             isLoading={isLoading}
+             onClick={handleSubmit}
             >
               Log in
             </Button>

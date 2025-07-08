@@ -1,20 +1,32 @@
 import axios from "axios";
-const baseUrl = import.meta.env.VITE_BASE_URL;
+import useUserStore from "../../hooks/storage/userStore";
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 
 export const axiosInstancePrivate = axios.create({
     baseURL: baseUrl,
-    withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
       },
   });
 
  
+  
+  // Add interceptor to inject token before every request
+  axiosInstancePrivate.interceptors.request.use(
+    (config) => {
+        const { user } = useUserStore.getState();
+      if (user?.access_token) {
+        config.headers.Authorization = `Bearer ${user?.access_token}`;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
 
 //AUTH APIS
 export const loginAuth = async(credentials) => {
-    const response = await axiosInstancePrivate.post('/login', credentials);
+    const response = await axiosInstancePrivate.post('/auth/login/', credentials);
     return response.data;
     
 }

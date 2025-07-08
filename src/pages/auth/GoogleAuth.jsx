@@ -4,15 +4,18 @@ import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import { Button, Spinner, useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../../hooks/storage/userStore";
 
 const GoogleAuth = ({ loadingMessage }) => {
-  const [user, setUser] = useState([]);
+  const [user, setUserToken] = useState([]);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-    const navigate = useNavigate(); // <== ✅ Add this
+  const navigate = useNavigate(); // <== ✅ Add this
+  const { setUser, setAccessToken } = useUserStore((state) => state)
+
 
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
+    onSuccess: (codeResponse) => setUserToken(codeResponse),
     onError: (error) => console.error("Login Failed:", error),
   });
 
@@ -55,7 +58,8 @@ const GoogleAuth = ({ loadingMessage }) => {
         });
 
         // Save user data locally
-        localStorage.setItem("user", JSON.stringify(backendRes.data));
+        setUser(backendRes.data?.data);
+        console.log(backendRes?.data?.data)
 
          // ✅ Redirect after success
         navigate("/dashboard"); // Change this to your target route

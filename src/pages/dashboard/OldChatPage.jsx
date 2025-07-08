@@ -29,14 +29,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { FiMenu, FiShare2, FiSearch, FiPaperclip } from "react-icons/fi";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../../components/CustomButton";
 import VideoIcon from "../../components/assets/icons/VideoIcon";
 import useUserStore from "../../hooks/storage/userStore";
 import { useMutation } from "@tanstack/react-query";
 import { createChat } from "../../store/user/api";
-import { ChatBubble } from "../../components/ChatBubble";
 
 export default function ChatDashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure(); // sidebar
@@ -145,47 +144,45 @@ export default function ChatDashboard() {
           </Text>
         </Center>
       ) : (
-      <Box flex="1" px={[4, 6]} py={4} overflowY="auto">
-      <VStack align="stretch" spacing={4}>
-        {messages.map((msg, id) => {
-  const isUser = msg.sender === "user";
-  const content = isUser ? msg.prompt_in : msg.prompt_output;
-
-  // Don't render if there's no content
-  if (!content) return null;
-
-  return (
-    <ChatBubble
-      key={id}
-      sender={msg.sender}
-      content={content}
-      inputBg={inputBg}
-      textColor={textColor}
-    />
-  );
-})}
-
-    {isLoading && (
-      <Box
-        bg={inputBg}
-        px={4}
-        py={2}
-        borderRadius="lg"
-        boxShadow="sm"
-        color={textColor}
-        maxW="fit-content"
-      >
-        <HStack>
-          <Spinner size="sm" />
-          <Text fontSize="sm">sending...</Text>
-        </HStack>
-      </Box>
-    )}
-
-    <div ref={messagesEndRef} />
-  </VStack>
-</Box>
-
+        <Box flex="1" px={[4, 6]} py={4} overflowY="auto">
+          <VStack align="stretch" spacing={4}>
+            {messages.map((msg) => (
+              <Flex
+                key={msg.id}
+                justify={msg.sender === "user" ? "flex-end" : "flex-start"}
+              >
+                <Box
+                  bg={msg.sender === "user" ? "blue.500" : inputBg}
+                  color={msg.sender === "user" ? "white" : textColor}
+                  px={4}
+                  py={2}
+                  borderRadius="lg"
+                  maxW="70%"
+                  boxShadow="sm"
+                >
+                  {msg.prompt_output || msg.prompt_in}
+                </Box>
+              </Flex>
+            ))}
+            {isLoading && (
+              <Box
+                bg={inputBg}
+                px={4}
+                py={2}
+                borderRadius="lg"
+                boxShadow="sm"
+                color={textColor}
+                maxW="fit-content"
+              >
+                <HStack>
+                  <Spinner size="sm" />
+                  <Text fontSize="sm">sending...</Text>
+                </HStack>
+              </Box>
+            )}
+            <div ref={messagesEndRef} />
+          </VStack>
+        </Box>
       )}
 
       {/* Message Input Only if Chat Started */}
