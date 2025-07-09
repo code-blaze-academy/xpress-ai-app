@@ -27,6 +27,11 @@ import {
   Spinner,
   Center,
   useToast,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
 } from "@chakra-ui/react";
 import { FiMenu, FiShare2, FiSearch, FiPaperclip } from "react-icons/fi";
 import React, { useState, useEffect, useRef } from "react";
@@ -53,6 +58,9 @@ export default function ChatDashboard() {
   const { user:userData } = useUserStore((state) => state);
   const { user } = userData;
   const toast = useToast();
+  const [chatId, setChatId] = useState("");
+  const [isNewChat, setIsNewChat] = useState(true);
+
 
 
   const bg = useColorModeValue("gray.50", "gray.900");
@@ -72,7 +80,15 @@ export default function ChatDashboard() {
   const{ mutate:submitCreateChat, isLoading } = useMutation(createChat,{
     onSuccess: (response) => {
      //update the messages array
-    setMessages((prev) => [...prev, response?.data]);
+    const { chat_id } = response?.data || {};
+    setMessages((prev) => [...prev, response?.data, { new_chat:false , chat_id: response?.data?.chat_id }]);
+    
+    // Only update once
+    if (isNewChat && chat_id) {
+      setChatId(chat_id);
+      setIsNewChat(false);
+    }
+
     setMessage("");
     },
     onError: () => {
@@ -90,8 +106,8 @@ export default function ChatDashboard() {
     if (!message.trim()) return;
 
     const newMessage = {
-      new_chat:true,
-      chat_id:"",
+      new_chat: isNewChat,
+      chat_id:chatId,
       prompt_in:message,
       sender:"user"
     };
@@ -113,8 +129,6 @@ export default function ChatDashboard() {
         px={4}
         py={3}
         bg={inputBg}
-        borderBottom="1px solid"
-        borderColor={borderColor}
       >
         <IconButton
           aria-label="Open sidebar"
@@ -124,13 +138,34 @@ export default function ChatDashboard() {
         />
         <Flex align="center" gap={2}>
           <IconButton icon={<FiShare2 />} aria-label="Share" variant="ghost" />
-          <Avatar
+          {/* <Avatar
             name={user?.full_name}
             src={user?.profile_image}
             size="sm"
             cursor="pointer"
             onClick={openProfile}
-          />
+          /> */}
+           <Menu bg="#0f121c">
+              <MenuButton
+                as={Button}
+                rounded={'full'}
+                variant={'link'}
+                cursor={'pointer'}
+                name={user?.full_name}
+                minW={0}>
+                <Avatar
+                  size={'sm'}
+                  src={user?.profile_image}
+                />
+              </MenuButton>
+              <MenuList bg="#0f121c" border="none" color="white">
+                <MenuItem>Theme</MenuItem>
+                <MenuItem>Setting</MenuItem>
+                <MenuItem>Upgrade</MenuItem>
+                <MenuItem>Logout</MenuItem>
+                <MenuItem>Help</MenuItem>
+              </MenuList>
+            </Menu>
         </Flex>
       </Flex>
 

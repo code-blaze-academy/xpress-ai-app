@@ -5,6 +5,7 @@ import { Signup } from "../pages/auth/Signup";
 import { Login } from "../pages/auth/Login";
 import Index from "../pages/home";
 import DashboardIndex from "../pages/dashboard";
+import Simple from "../pages/dashboard/TestingComponents";
 
 
 // import Home from "../portal/pages/Home";
@@ -19,11 +20,12 @@ return (
         <Route path="/" element={<Index />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login/>} />
+        <Route path="testing" element={<Simple/>}/>
 
 
 
         <Route path="/dashboard" element={<DashboardIndex/>}>
-
+       
         </Route>
 
         
