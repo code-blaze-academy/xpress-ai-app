@@ -21,11 +21,11 @@ import { useState } from 'react'
 import { Link as RouterLink } from "react-router-dom"
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import XpressAiLogo from '../../assets/icons/XpressAiLogo'
-import { FcGoogle } from 'react-icons/fc'
 import { FaApple } from 'react-icons/fa'
 import GoogleAuth from './GoogleAuth'
 import { useMutation } from '@tanstack/react-query'
 import { loginAuth } from '../../store/auth/api'
+import useUserStore from '../../hooks/storage/userStore'
 
 export const Login = ()  => {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,6 +35,7 @@ export const Login = ()  => {
     password:""
   });
 
+ const { setUser } = useUserStore((state) => state );
 
   const handleChange = (e) => {
     setInputs(prev => ({...prev,[e.target.name]:e.target.value}))
@@ -43,8 +44,27 @@ export const Login = ()  => {
   // call use mutation
   
   const { mutate:submitLogin, isLoading } = useMutation(loginAuth,{
-    onSuccess:() => {
+    onSuccess:(response) => {
+     toast({
+          title: "Login Successful",
+          description: response.data?.message || "Welcome!",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
 
+      // Save user data locally
+      setUser(response.data?.data);
+      console.log(response.data?.data)
+    },
+    onError : (error) => {
+         toast({
+          title: "Login failed",
+          description: error?.response?.data?.error,
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
     }
   })
 

@@ -159,11 +159,11 @@ export default function ChatDashboard() {
                 />
               </MenuButton>
               <MenuList bg="#0f121c" border="none" color="white">
-                <MenuItem>Theme</MenuItem>
-                <MenuItem>Setting</MenuItem>
-                <MenuItem>Upgrade</MenuItem>
+                {/* <MenuItem>Theme</MenuItem> */}
+                {/* <MenuItem>Setting</MenuItem> */}
+                {/* <MenuItem>Upgrade</MenuItem> */}
                 <MenuItem>Logout</MenuItem>
-                <MenuItem>Help</MenuItem>
+                {/* <MenuItem>Help</MenuItem> */}
               </MenuList>
             </Menu>
         </Flex>
@@ -182,15 +182,15 @@ export default function ChatDashboard() {
       ) : (
       <Box flex="1" px={[4, 6]} py={4} overflowY="auto">
       <VStack align="stretch" spacing={4}>
-        {messages.map((msg, id) => {
-  const isUser = msg.sender === "user";
-  const content = isUser ? msg.prompt_in : msg.prompt_output;
+       {messages.map((msg, id) => {
+       const isUser = msg.sender === "user";
+      const content = isUser ? msg.prompt_in : msg.prompt_output;
 
-  // Don't render if there's no content
-  if (!content) return null;
+     // Don't render if there's no content
+      if (!content) return null;
 
-  return (
-    <ChatBubble
+     return (
+      <ChatBubble
       key={id}
       sender={msg.sender}
       content={content}

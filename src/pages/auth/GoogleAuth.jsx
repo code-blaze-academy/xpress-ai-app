@@ -59,7 +59,7 @@ const GoogleAuth = ({ loadingMessage }) => {
 
         // Save user data locally
         setUser(backendRes.data?.data);
-        console.log(backendRes?.data?.data)
+     
 
          // ✅ Redirect after success
         navigate("/dashboard"); // Change this to your target route
