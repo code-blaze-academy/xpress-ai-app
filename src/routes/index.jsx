@@ -29,13 +29,10 @@ return (
 
 
         <Route path="/dashboard" element={
-         !user ? <Navigate to={"/login"} /> : (
-        <DashboardLayout>
-           <DashboardIndex/>
-         </DashboardLayout>
-         )
+         !user ? <Navigate to={"/login"} /> : <DashboardLayout/>
         }>
-       
+        <Route index element={<DashboardIndex/>} />
+        {/* <Route path="settings" element={<Settings />} /> */}
         </Route>
 
         

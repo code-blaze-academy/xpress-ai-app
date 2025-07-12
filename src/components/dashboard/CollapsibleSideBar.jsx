@@ -22,6 +22,7 @@ import { useState } from "react";
 import SideBarIcon from "../assets/icons/SideBarIcon";
 import NewChatIcon from "../assets/icons/NewChatIcon";
 import CustomButton from "../CustomButton";
+import CloseSideBarIcon from "../assets/icons/CloseSideBarIcon";
 
 export default function CollapsibleSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -44,7 +45,7 @@ export default function CollapsibleSidebar() {
       <VStack align="start" spacing={4}>
         <IconButton
           // icon={isCollapsed ? <FiChevronRight /> : <FiChevronLeft />}
-          icon={<SideBarIcon width="24px" height="25px"/>}
+          icon={isCollapsed ? <SideBarIcon width="24px" height="25px"/> : <CloseSideBarIcon/>}
           aria-label="Toggle Sidebar"
           onClick={() => setIsCollapsed(!isCollapsed)}
           size="sm"
@@ -54,8 +55,6 @@ export default function CollapsibleSidebar() {
         {isCollapsed ? (
           <VStack spacing={4}>
             <Tooltip label="New Chat" placement="right">
-              <IconButton 
-              icon={
               <CustomButton 
               leftIcon={<NewChatIcon/>}
               borderRadius="8px"
@@ -64,8 +63,7 @@ export default function CollapsibleSidebar() {
               padding="10px"
               // display="flex"
               // justifyContent={"center"}
-              />} 
-              aria-label="New Chat" size="sm" />
+              />
             </Tooltip>
             <Tooltip label="Search" placement="right">
               <IconButton
