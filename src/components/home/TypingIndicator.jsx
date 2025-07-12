@@ -81,7 +81,7 @@ const TypingIndicator = () => {
           as="div"
           fontSize={{base:"12px", sm:"16px", md:"20px"}} 
           color={useColorModeValue("gray.500",'gray.50')}>
-            Xpress Learner AI is your personalized learning companion, creating structured and live AI-generated video lessons tailored to your needs.
+            Xpress AI is your personalized learning companion, creating structured and live AI-generated video lessons tailored to your needs.
           </Text>
           <Stack
             direction={'column'}

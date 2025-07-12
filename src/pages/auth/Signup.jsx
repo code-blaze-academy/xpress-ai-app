@@ -42,7 +42,7 @@ export const Signup = ()  => {
       w={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading as={RouterLink} to={"/"} display={"flex"} alignItems={"center"} fontSize={'4xl'} textAlign={'center'}>
-            <XpressAiLogo/>
+            <XpressAiLogo width="48px" height="49px"/>
             press AI
           </Heading>
         </Stack>

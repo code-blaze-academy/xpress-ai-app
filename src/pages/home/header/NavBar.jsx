@@ -39,9 +39,8 @@ import CustomButton from '../../../components/CustomButton';
           borderColor={useColorModeValue('gray.200', 'gray.900')}
           align={'center'}>
           <Flex flex={{ base: 1 }} alignItems={"center"} justify={{ base: 'space-between'}}>
-            <Box cursor={"pointer"} display={"flex"} alignItems={"center"} fontSize={"1.5rem"} fontWeight={"600"}>
-            {/* <Image src={XpressAiLogo} alt="Logo" boxSize="94px" /> */}
-            <XpressAiLogo/>
+            <Box cursor={"pointer"} display={"flex"} alignItems={{base:"baseline", lg:"center"}} fontSize={{base:"0.85rem",lg:"1.5rem"}} fontWeight={"600"}>
+            <XpressAiLogo width="34px" height="35px" />
              press AI
             </Box>
             <Flex  display={{ base: 'none', md: 'flex' }} mx={"auto"}>

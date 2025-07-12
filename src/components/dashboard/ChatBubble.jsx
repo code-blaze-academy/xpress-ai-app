@@ -1,6 +1,6 @@
 import { Avatar, Box, Flex, HStack, IconButton, Text, Tooltip, useClipboard, useColorModeValue, useToast } from "@chakra-ui/react";
 import { FiCheck, FiCopy, FiThumbsDown, FiThumbsUp, FiVolume2 } from "react-icons/fi";
-import XpressAiLogo from "../assets/icons/XpressAiLogo";
+import XpressAiLogo from "../../assets/icons/XpressAiLogo";
 import { useState } from "react";
 
 export const ChatBubble = ({ sender, content, inputBg, textColor }) => {

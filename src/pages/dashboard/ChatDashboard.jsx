@@ -41,7 +41,8 @@ import VideoIcon from "../../components/assets/icons/VideoIcon";
 import useUserStore from "../../hooks/storage/userStore";
 import { useMutation } from "@tanstack/react-query";
 import { createChat } from "../../store/user/api";
-import { ChatBubble } from "../../components/ChatBubble";
+import { ChatBubble } from "../../components/dashboard/ChatBubble";
+import CollapsibleSidebar from "../../components/dashboard/CollapsibleSideBar";
 
 export default function ChatDashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure(); // sidebar
@@ -122,52 +123,6 @@ export default function ChatDashboard() {
 
   return (
     <Flex  direction="column" bg={bg}>
-      {/* Top Navbar */}
-      <Flex
-        justify="space-between"
-        align="center"
-        px={4}
-        py={3}
-        bg={inputBg}
-      >
-        <IconButton
-          aria-label="Open sidebar"
-          icon={<FiMenu />}
-          onClick={onOpen}
-          variant="ghost"
-        />
-        <Flex align="center" gap={2}>
-          <IconButton icon={<FiShare2 />} aria-label="Share" variant="ghost" />
-          {/* <Avatar
-            name={user?.full_name}
-            src={user?.profile_image}
-            size="sm"
-            cursor="pointer"
-            onClick={openProfile}
-          /> */}
-           <Menu bg="#0f121c">
-              <MenuButton
-                as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}
-                name={user?.full_name}
-                minW={0}>
-                <Avatar
-                  size={'sm'}
-                  src={user?.profile_image}
-                />
-              </MenuButton>
-              <MenuList bg="#0f121c" border="none" color="white">
-                {/* <MenuItem>Theme</MenuItem> */}
-                {/* <MenuItem>Setting</MenuItem> */}
-                {/* <MenuItem>Upgrade</MenuItem> */}
-                <MenuItem>Logout</MenuItem>
-                {/* <MenuItem>Help</MenuItem> */}
-              </MenuList>
-            </Menu>
-        </Flex>
-      </Flex>
 
       {/* Chat Interface */}
       {messages.length === 0 ? (
@@ -287,52 +242,7 @@ export default function ChatDashboard() {
       />
     </HStack>
   </HStack>
-</Box>
-
-
-      {/* Sidebar Drawer */}
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
-        <DrawerOverlay />
-        <DrawerContent bg={bg}>
-          <DrawerHeader borderBottom="1px solid" borderColor={borderColor}>
-            Previous Conversations
-          </DrawerHeader>
-          <DrawerBody>
-            <InputGroup mb={4}>
-              <InputLeftElement pointerEvents="none" children={<FiSearch />} />
-              <Input
-                placeholder="Search conversations..."
-                bg={inputBg}
-                color={textColor}
-                borderColor={borderColor}
-              />
-            </InputGroup>
-            <VStack align="start" spacing={3} color={textColor}>
-              <Box cursor="pointer">• Chat with Support</Box>
-              <Box cursor="pointer">• Pricing Inquiry</Box>
-              <Box cursor="pointer">• Onboarding Guide</Box>
-            </VStack>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-
-      {/* Profile Modal */}
-      <Modal isOpen={isProfileOpen} onClose={closeProfile} isCentered>
-        <ModalOverlay />
-        <ModalContent bg={inputBg}>
-          <ModalHeader color={textColor}>My Profile</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Text fontWeight="bold" mb={2} color={textColor}>Name:</Text>
-            <Text mb={4} color={textColor}>{user?.full_name}</Text>
-            <Text fontWeight="bold" mb={2} color={textColor}>Email:</Text>
-            <Text mb={4} color={textColor}>{user?.email}</Text>
-          </ModalBody>
-          <ModalFooter>
-            <Button onClick={closeProfile}>Close</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+  </Box>
     </Flex>
   );
 }
