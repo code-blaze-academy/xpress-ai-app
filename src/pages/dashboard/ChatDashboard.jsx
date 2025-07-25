@@ -32,6 +32,7 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  keyframes,
 } from "@chakra-ui/react";
 import { FiMenu, FiShare2, FiSearch, FiPaperclip } from "react-icons/fi";
 import React, { useState, useEffect, useRef } from "react";
@@ -43,6 +44,15 @@ import { useMutation } from "@tanstack/react-query";
 import { createChat } from "../../store/user/api";
 import { ChatBubble } from "../../components/dashboard/ChatBubble";
 import CollapsibleSidebar from "../../components/dashboard/CollapsibleSideBar";
+
+
+
+const pulse = keyframes`
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+`;
+
 
 export default function ChatDashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure(); // sidebar
@@ -122,7 +132,7 @@ export default function ChatDashboard() {
   };
 
   return (
-    <Flex  direction="column" bg={bg}>
+    <Flex  direction="column">
 
       {/* Chat Interface */}
       {messages.length === 0 ? (
@@ -156,20 +166,18 @@ export default function ChatDashboard() {
 })}
 
     {isLoading && (
+    <HStack spacing={3} align="center">
+     {[...Array(3)].map((_, i) => (
       <Box
-        bg={inputBg}
-        px={4}
-        py={2}
-        borderRadius="lg"
-        boxShadow="sm"
-        color={textColor}
-        maxW="fit-content"
-      >
-        <HStack>
-          <Spinner size="sm" />
-          <Text fontSize="sm">sending...</Text>
-        </HStack>
-      </Box>
+        key={i}
+        w="8px"
+        h="8px"
+        borderRadius="full"
+        bg="blue.400"
+        animation={`${pulse} 1.2s ease-in-out ${i * 0.2}s infinite`}
+      />
+    ))}
+    </HStack>
     )}
 
     <div ref={messagesEndRef} />

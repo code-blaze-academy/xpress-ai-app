@@ -30,7 +30,6 @@ export const  HeaderBar = () => {
       align="center"
       px={4}
       py={3}
-      bg={inputBg}
       borderBottom="1px solid"
       borderColor="gray.700"
     >

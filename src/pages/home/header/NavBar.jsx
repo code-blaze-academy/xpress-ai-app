@@ -12,7 +12,6 @@ import {
     PopoverContent,
     useColorModeValue,
     useDisclosure,
-    Image,
   } from '@chakra-ui/react';
   import {
     HamburgerIcon,
@@ -20,7 +19,7 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
   } from '@chakra-ui/icons';
-  import { Link, Route, Router, Link as RouterLink } from 'react-router-dom';
+  import { Link as RouterLink } from 'react-router-dom';
   import XpressAiLogo from '../../../assets/icons/XpressAiLogo';
 import CustomButton from '../../../components/CustomButton';
   
@@ -140,7 +139,7 @@ import CustomButton from '../../../components/CustomButton';
     );
   };
   
-  const DesktopSubNav = ({ label, href, subLabel }) => {
+  const DesktopSubNav = ({ label, subLabel }) => {
     return (
       <Box 
       role={'group'} display={'block'} p={2} rounded={'md'}

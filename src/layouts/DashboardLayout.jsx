@@ -9,9 +9,11 @@ export const DashboardLayout = () => {
   return (
     <Flex height="100vh" overflow="hidden">
       <CollapsibleSidebar />
-      <Flex direction="column" flex="1" overflow="hidden">
-        <HeaderBar />
-        <Box flex="1" overflowY="auto" p={4}>
+      <Flex direction="column" flex="1" overflow="hidden" bg={"#0E1117"}>
+        <Box>
+           <HeaderBar/>
+        </Box>
+        <Box height={"100vh"} overflowY="auto">
           <Outlet/>
         </Box>
       </Flex>

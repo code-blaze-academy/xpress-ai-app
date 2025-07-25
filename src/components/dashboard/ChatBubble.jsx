@@ -93,14 +93,18 @@ export const ChatBubble = ({ sender, content, inputBg, textColor }) => {
           }
 
           <Box
-            bg={isUser ? "blue.500" : inputBg}
+            bg={isUser ? "#0f121c" : inputBg}
             color={isUser ? "white" : textColor}
-            px={4}
-            py={2}
+            px={"20px"}
+            py={"10px"}
             borderRadius="lg"
             boxShadow="sm"
             maxW="full"
             minW="100px"
+            minH={"58px"}
+            display={"flex"}
+            ali
+            borderColor={"1px solid rgba(68, 68, 68, 0.22)"}
           >
             <Text whiteSpace="pre-wrap" fontSize="sm">
               {content}
