@@ -26,7 +26,7 @@ export const  HeaderBar = () => {
   }
   return (
     <Flex
-      justifyContent={"flex-start"}
+      justifyContent={{base:"flex-start", md:"flex-end"}}
       align="center"
       px={4}
       py={3}

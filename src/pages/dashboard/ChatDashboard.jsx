@@ -182,7 +182,7 @@ export default function ChatDashboard() {
     </HStack>
     )}
 
-    <div ref={messagesEndRef} />
+    <Box ref={messagesEndRef} />
   </VStack>
 </Box>
 

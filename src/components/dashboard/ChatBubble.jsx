@@ -2,6 +2,7 @@ import { Avatar, Box, Flex, HStack, IconButton, Text, Tooltip, useClipboard, use
 import { FiCheck, FiCopy, FiThumbsDown, FiThumbsUp, FiVolume2 } from "react-icons/fi";
 import XpressAiLogo from "../../assets/icons/XpressAiLogo";
 import { useState } from "react";
+import MarkdownRenderer from "./MarkdownRenderer";
 
 export const ChatBubble = ({ sender, content, inputBg, textColor }) => {
   const isUser = sender === "user";
@@ -103,12 +104,13 @@ export const ChatBubble = ({ sender, content, inputBg, textColor }) => {
             minW="100px"
             minH={"58px"}
             display={"flex"}
-            ali
             borderColor={"1px solid rgba(68, 68, 68, 0.22)"}
           >
-            <Text whiteSpace="pre-wrap" fontSize="sm">
-              {content}
-            </Text>
+            {isUser ? (
+              <Text whiteSpace="pre-wrap">{content}</Text>
+            ) : (
+              <MarkdownRenderer content={content} />
+            )}
           </Box>
         </Flex>
 
