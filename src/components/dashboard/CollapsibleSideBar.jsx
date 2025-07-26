@@ -1,3 +1,4 @@
+// CollapsibleSidebar.tsx
 import {
   Box,
   IconButton,
@@ -14,62 +15,79 @@ import {
   DrawerOverlay,
   DrawerHeader,
   useDisclosure,
-  Skeleton,
-  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
-import {  useState } from "react";
-import SideBarIcon from "../assets/icons/SideBarIcon";
-import NewChatIcon from "../assets/icons/NewChatIcon";
-import CustomButton from "../CustomButton";
-import CloseSideBarIcon from "../assets/icons/CloseSideBarIcon";
-import { useQuery } from "@tanstack/react-query";
-import { getChatHistory } from "../../store/user/api";
-import { useNavigate } from "react-router-dom";
+import { useMemo, useState } from "react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { useQuery } from "@tanstack/react-query";
+
+
+import SideBarIcon from "../../assets/icons/SideBarIcon";
+import CloseSideBarIcon from "../../assets/icons/CloseSideBarIcon";
+import NewChatIcon from "../../assets/icons/NewChatIcon";
+import CustomButton from "../CustomButton";
+import { getChatHistory } from "../../store/user/api";
+import { ConversationList } from "./ConversationList";
+
 
 export default function CollapsibleSidebar() {
   const toast = useToast();
-  const navigate = useNavigate();
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const { isOpen, onOpen, onClose } = useDisclosure(); // for Drawer
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [conversations, setConversations] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [conversations, setConversations] = useState([]);
 
-  // Chakra theme colors
   const bg = useColorModeValue("gray.50", "#0f121c");
-  const bgHoverColor = useColorModeValue("gray.100", "gray.700");
   const textColor = useColorModeValue("gray.800", "white");
   const placeholderColor = useColorModeValue("gray.500", "gray.400");
 
-  // Fetch conversations
   const { isLoading } = useQuery(["getChatHistory"], getChatHistory, {
     onSuccess: (response) => setConversations(response.data || []),
-    onError: (error) => {
+    onError: (error) =>
       toast({
         title: "Could not fetch chat history",
         description: error?.response?.data?.error || "Unexpected error",
         status: "error",
         duration: 4000,
         isClosable: true,
-      });
-    },
+      }),
   });
 
-  const filteredConversations = conversations.filter((conv) =>
+  // const filteredConversations = conversations.filter((conv) =>
+  //   conv.title.toLowerCase().includes(searchValue.toLowerCase())
+  // );
+  const filteredConversations = useMemo(() => {
+  return conversations.filter((conv) =>
     conv.title.toLowerCase().includes(searchValue.toLowerCase())
   );
+}, [conversations, searchValue]);
 
-  const SidebarContent = (
-    <Box w={isCollapsed ? "60px" : "262px"} transition="width 0.3s" bg={bg} minH="100vh" px={isCollapsed ? 2 : 4} py={4}>
+
+const handleToggle = () => {
+  isMobile ? onOpen() : setIsCollapsed(prev => !prev);
+};
+
+
+
+  const renderSidebar = () => (
+    <Box
+      w={isCollapsed ? "60px" : "262px"}
+      transition="width 0.3s"
+      bg={bg}
+      minH="100vh"
+      px={isCollapsed ? 2 : 4}
+      py={4}
+      // position={"fixed"}
+      overflowY="auto" maxH="85vh"
+    >
       <VStack align="start" spacing={4}>
         <IconButton
           icon={isCollapsed ? <SideBarIcon width="24px" height="25px" /> : <CloseSideBarIcon />}
           aria-label="Toggle Sidebar"
-          onClick={isMobile ? onOpen : () => setIsCollapsed(!isCollapsed)}
+          onClick={handleToggle}
           size="sm"
           alignSelf={isCollapsed ? "center" : "flex-end"}
         />
@@ -102,39 +120,15 @@ export default function CollapsibleSidebar() {
                 display="flex"
                 justifyContent="flex-start"
               />
-
-              <VStack align="start" spacing={3} overflowY="auto" maxH="65vh">
-                {isLoading ? (
-                  [...Array(20)].map((_, idx) => (
-                    <Skeleton key={idx} height="10px" width="100%" borderRadius="md" />
-                  ))
-                ) : filteredConversations.length > 0 ? (
-                  filteredConversations.map((conversation) => (
-                    <Box
-                      key={conversation.chat_id}
-                      fontSize="14px"
-                      px={3}
-                      py={2}
-                      w="full"
-                      borderRadius="md"
-                      cursor="pointer"
-                      _hover={{ bg: bgHoverColor }}
-                      onClick={() => navigate(`/chat/${conversation.chat_id}`)}
-                    >
-                      {conversation.title}
-                    </Box>
-                  ))
-                ) : (
-                  <Text fontSize="sm" color="gray.500">
-                    No conversations found.
-                  </Text>
-                )}
-              </VStack>
+              <ConversationList
+                isLoading={isLoading}
+                conversations={filteredConversations}
+              />
             </Box>
           </>
         )}
 
-        {isCollapsed && (
+        {!isMobile && isCollapsed && (
           <VStack spacing={4}>
             <Tooltip label="New Chat" placement="right">
               <CustomButton leftIcon={<NewChatIcon />} borderRadius="8px" width="40px" height="40px" p={2} />
@@ -166,11 +160,18 @@ export default function CollapsibleSidebar() {
           <DrawerHeader borderBottomWidth="1px" color={textColor}>
             Chats
           </DrawerHeader>
-          <DrawerBody>{SidebarContent}</DrawerBody>
+          <DrawerBody>
+            <ConversationList
+              isLoading={isLoading}
+              conversations={filteredConversations}
+              isMobile={isMobile}
+              onClose={onClose}
+            />
+          </DrawerBody>
         </DrawerContent>
       </Drawer>
     </>
   ) : (
-    SidebarContent
+    renderSidebar()
   );
 }

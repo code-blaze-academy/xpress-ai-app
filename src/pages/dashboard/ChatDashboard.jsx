@@ -38,9 +38,9 @@ import { FiMenu, FiShare2, FiSearch, FiPaperclip } from "react-icons/fi";
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../../components/CustomButton";
-import VideoIcon from "../../components/assets/icons/VideoIcon";
+import VideoIcon from "../../assets/icons/VideoIcon";
 import useUserStore from "../../hooks/storage/userStore";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createChat } from "../../store/user/api";
 import { ChatBubble } from "../../components/dashboard/ChatBubble";
 import CollapsibleSidebar from "../../components/dashboard/CollapsibleSideBar";
@@ -71,6 +71,7 @@ export default function ChatDashboard() {
   const toast = useToast();
   const [chatId, setChatId] = useState("");
   const [isNewChat, setIsNewChat] = useState(true);
+  const queryClient = useQueryClient();
 
 
 
@@ -93,6 +94,7 @@ export default function ChatDashboard() {
      //update the messages array
     const { chat_id } = response?.data || {};
     setMessages((prev) => [...prev, response?.data, { new_chat:false , chat_id: response?.data?.chat_id }]);
+    queryClient.invalidateQueries("getChatHistory")
     
     // Only update once
     if (isNewChat && chat_id) {

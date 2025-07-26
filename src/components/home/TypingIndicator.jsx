@@ -4,7 +4,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom'
 // import ArroUpRightIcon from '../ArroUpRightIcon';
 import { TypeAnimation } from 'react-type-animation';
 import CustomButton from '../CustomButton';
-import VideoIcon from '../assets/icons/VideoIcon';
+import VideoIcon from '../../assets/icons/VideoIcon';
 // import gridBg from "../../assets/icons/grid-bg.svg"
 // const Arrow = createIcon({
 //     displayName: 'Arrow',

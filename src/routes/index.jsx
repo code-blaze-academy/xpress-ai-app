@@ -8,6 +8,7 @@ import DashboardIndex from "../pages/dashboard";
 import Simple from "../pages/dashboard/TestingComponents";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import useUserStore from "../hooks/storage/userStore";
+import ChatView from "../components/dashboard/ChatView";
 
 
 
@@ -32,6 +33,7 @@ return (
          !user ? <Navigate to={"/login"} /> : <DashboardLayout/>
         }>
         <Route index element={<DashboardIndex/>} />
+        <Route path="chat/:chatId" element={<ChatView />} />
         {/* <Route path="settings" element={<Settings />} /> */}
         </Route>
 
