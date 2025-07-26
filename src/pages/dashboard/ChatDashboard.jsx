@@ -94,7 +94,7 @@ export default function ChatDashboard() {
      //update the messages array
     const { chat_id } = response?.data || {};
     setMessages((prev) => [...prev, response?.data, { new_chat:false , chat_id: response?.data?.chat_id }]);
-    queryClient.invalidateQueries("getChatHistory")
+    queryClient.invalidateQueries(["getChatHistory"])
     
     // Only update once
     if (isNewChat && chat_id) {
