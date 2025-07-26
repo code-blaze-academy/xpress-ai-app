@@ -150,9 +150,10 @@ const handleToggle = () => {
         onClick={onOpen}
         position="fixed"
         top="4"
-        left="4"
+        right="4"
         zIndex="overlay"
-        display={{ base: "block", md: "none" }}
+        display={{ base: "flex", md: "none" }}
+        // justifyContent={"flex-end"}
       />
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />

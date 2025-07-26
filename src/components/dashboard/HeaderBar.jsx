@@ -26,12 +26,13 @@ export const  HeaderBar = () => {
   }
   return (
     <Flex
-      justify="space-between"
+      justifyContent={"flex-start"}
       align="center"
       px={4}
       py={3}
       borderBottom="1px solid"
       borderColor="gray.700"
+      flexBasis={"100%"}
     >
       <Box /> {/* Placeholder if you want to add logo later */}
       <Flex align="center" gap={2}>
