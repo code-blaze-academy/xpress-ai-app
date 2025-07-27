@@ -29,12 +29,15 @@ import NewChatIcon from "../../assets/icons/NewChatIcon";
 import CustomButton from "../CustomButton";
 import { getChatHistory } from "../../store/user/api";
 import { ConversationList } from "./ConversationList";
+import useUserStore from "../../hooks/storage/userStore";
 
 
 export default function CollapsibleSidebar() {
   const toast = useToast();
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { setChatsHistory } = useUserStore((state) => state);
+
 
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [searchValue, setSearchValue] = useState("");
@@ -45,7 +48,10 @@ export default function CollapsibleSidebar() {
   const placeholderColor = useColorModeValue("gray.500", "gray.400");
 
   const { isLoading } = useQuery(["getChatHistory"], getChatHistory, {
-    onSuccess: (response) => setConversations(response.data || []),
+    onSuccess: (response) => {
+      setConversations(response.data || []);
+      setChatsHistory(response?.data)
+    },
     onError: (error) =>
       toast({
         title: "Could not fetch chat history",

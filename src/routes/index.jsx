@@ -8,7 +8,7 @@ import DashboardIndex from "../pages/dashboard";
 import Simple from "../pages/dashboard/TestingComponents";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import useUserStore from "../hooks/storage/userStore";
-import ChatView from "../components/dashboard/ChatView";
+import ChatView from "../pages/dashboard/ChatView";
 
 
 
@@ -22,7 +22,7 @@ return (
         {/* AUTH ROUTES */}
         {/* <Route path="/" element ={<} /> */}
         {/* <Route path="/" element={<Login />} /> */}
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={ user ? <Navigate to={"/dashboard"} /> : <Index />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login/>} />
         <Route path="testing" element={<Simple/>}/>

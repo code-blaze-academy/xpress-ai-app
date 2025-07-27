@@ -75,9 +75,7 @@ export default function ChatDashboard() {
 
 
 
-  const bg = useColorModeValue("gray.50", "gray.900");
   const inputBg = useColorModeValue("white", "gray.800");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
   const textColor = useColorModeValue("gray.800", "gray.100");
 
   const scrollToBottom = () => {
@@ -183,13 +181,13 @@ export default function ChatDashboard() {
     )}
 
     <Box ref={messagesEndRef} />
-  </VStack>
-</Box>
+    </VStack>
+    </Box>
 
       )}
 
-      {/* Message Input Only if Chat Started */}
-<Box
+  {/* Message Input Only if Chat Started */}
+  <Box
   p="10px"
   background="#0f121c"
   h="60px"

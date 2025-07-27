@@ -31,10 +31,11 @@ const useUserStore = create(
   persist(
     (set) => ({
       user: null,
-      // access_token: null,
+      chatsHistory: [],
 
       // Setters
       setUser: (user) => set({ user }),
+      setChatsHistory: (history) => set({ chatsHistory : history}),
       // setAccessToken: (access_token) => set({ access_token }),
 
       // Logout clears critical state
@@ -49,6 +50,7 @@ const useUserStore = create(
       storage: zustandStorage,
       partialize: (state) => ({
         user: state.user,
+        chatsHistory: state.chatsHistory
         // access_token: state.access_token,
       }),
     }
