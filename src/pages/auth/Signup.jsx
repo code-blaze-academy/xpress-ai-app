@@ -7,7 +7,6 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  HStack,
   InputRightElement,
   Stack,
   Button,
@@ -15,20 +14,85 @@ import {
   Text,
   useColorModeValue,
   Divider,
+  useToast,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { Link as RouterLink } from "react-router-dom"
+import { Link as RouterLink, useNavigate } from "react-router-dom"
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-// import XpressAiLogo from '../../assets/icons/XpressAiLogo'
 import { FcGoogle } from 'react-icons/fc'
 import { FaApple } from 'react-icons/fa'
 import XpressAiLogo from '../../assets/icons/XpressAiLogo'
 import GoogleAuth from './GoogleAuth'
+import useUserStore from '../../hooks/storage/userStore'
+import { useMutation } from '@tanstack/react-query'
+import { signUpAuth } from '../../store/auth/api'
 
 export const Signup = ()  => {
   const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+   const toast = useToast();
+   const navigate = useNavigate();
 
+    const [inputs, setInputs] = useState({
+      email: "",
+      password:"",
+      confirmPassword:""
+    });
+  
+   const { setUser } = useUserStore((state) => state );
+  
+    const handleChange = (e) => {
+      setInputs(prev => ({...prev,[e.target.name]:e.target.value}))
+    }
+
+      const { mutate:submitLogin, isLoading } = useMutation(signUpAuth,{
+        onSuccess:(response) => {
+         toast({
+              title: "Signup Successful",
+              description: response.detail || "Welcome!",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+            });
+    
+          // Save user data locally
+          // setUser(response);
+          navigate("/login");
+
+        },
+        onError : (error) => {
+             toast({
+              title: "Login failed",
+              description: error?.response?.data?.error,
+              status: "error",
+              duration: 4000,
+              isClosable: true,
+            });
+        }
+      })
+    
+       const handleSubmit = async(e) => {
+        e.preventDefault();
+        const { email, password, confirmPassword } = inputs;
+    
+      if (!email || !password || !confirmPassword) {
+        toast({
+          title: "Missing fields",
+          description: "Please fill all the necessary details.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+        return;
+      }
+        
+        const payload = {
+          email: inputs?.email,
+          password:inputs?.password,
+          confirm_password:inputs?.confirmPassword
+        }
+        submitLogin(payload)
+      }
   return (
     <Flex
       minH={'100vh'}
@@ -76,7 +140,13 @@ export const Signup = ()  => {
 
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" placeholder='Enter your email' />
+              <Input 
+              type="email" 
+              placeholder='Enter your email'
+              name="email"
+              value={inputs?.email}
+              onChange={handleChange}
+               />
             </FormControl>
 
             <FormControl id="password">
@@ -85,6 +155,9 @@ export const Signup = ()  => {
                 <Input 
                 type={showPassword ? 'text' : 'password'}
                 placeholder='Enter your password'
+                name="password"
+                value={inputs?.password}
+                onChange={handleChange}
                  />
                 <InputRightElement h={'full'}>
                   <Button
@@ -101,6 +174,9 @@ export const Signup = ()  => {
               <InputGroup>
                 <Input 
                 type={showConfirmPassword ? 'text' : 'password'}
+                name="confirmPassword"
+                value={inputs?.confirmPassword}
+                onChange={handleChange}
                 placeholder='Enter Confirm password'
                  />
                 <InputRightElement h={'full'}>
@@ -120,6 +196,8 @@ export const Signup = ()  => {
               _hover={{
               bgGradient: "linear(to-r, #173685 0%, rgba(23, 54, 133, 0.70) 50%, #718517 100%)",
               }}
+              isLoading={isLoading}
+              onClick={handleSubmit}
               >
              Create Account
            </Button>

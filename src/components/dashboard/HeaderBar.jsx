@@ -42,7 +42,11 @@ export const  HeaderBar = () => {
             <Avatar size="sm" src={user?.profile_image} />
           </MenuButton>
           <MenuList bg="#0f121c" border="none" color="white">
+            <MenuItem>Theme</MenuItem>
+            <MenuItem>Settings</MenuItem>
+            <MenuItem>Upgrade</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem>Help</MenuItem> 
           </MenuList>
         </Menu>
       </Flex>

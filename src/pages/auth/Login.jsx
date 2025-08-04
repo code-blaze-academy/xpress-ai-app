@@ -18,7 +18,7 @@ import {
   useToast,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { Link as RouterLink } from "react-router-dom"
+import { Link as RouterLink, useNavigate } from "react-router-dom"
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import XpressAiLogo from '../../assets/icons/XpressAiLogo'
 import { FaApple } from 'react-icons/fa'
@@ -36,6 +36,7 @@ export const Login = ()  => {
   });
 
  const { setUser } = useUserStore((state) => state );
+ const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputs(prev => ({...prev,[e.target.name]:e.target.value}))
@@ -54,8 +55,8 @@ export const Login = ()  => {
         });
 
       // Save user data locally
-      setUser(response.data?.data);
-      console.log(response.data?.data)
+      setUser(response.data);
+      navigate("/dashboard");
     },
     onError : (error) => {
          toast({

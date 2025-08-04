@@ -32,7 +32,7 @@ export const loginAuth = async(credentials) => {
 }
 
 export const signUpAuth = async(credentials) => {
-    const response = await axiosInstancePrivate.post(`/signup`, credentials);
+    const response = await axiosInstancePrivate.post(`/auth/register/`, credentials);
     return response.data;
     
 }

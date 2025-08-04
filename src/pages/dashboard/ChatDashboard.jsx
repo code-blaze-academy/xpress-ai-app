@@ -138,7 +138,7 @@ export default function ChatDashboard() {
       {messages.length === 0 ? (
         <Center flex="1" flexDirection="column" textAlign="center" px={4}>
           <Text fontSize="3xl" fontWeight="bold" color={textColor}>
-            Hi {user?.full_name.split(" ")[0]},
+            Hi {user?.full_name?.split(" ")[0]},
           </Text>
           <Text fontSize={{base:"14px",lg:"18px"}} mb={"62px"} mt={3} color={textColor}>
             Want to continue from our previous <br /> conversation or <Link className="text-[#0E47D8]">start a new chat here?</Link>
