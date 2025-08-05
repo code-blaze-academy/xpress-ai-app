@@ -41,7 +41,7 @@ export const CustomModal = ({
       <ModalOverlay
         display="flex"
         {...modalPosition}
-        bg="blackAlpha.500"
+        bg={"rgba(110, 111, 119, 0.30)"}
       />
       <MotionModalContent
         initial={{ opacity: 0, y: 20 }}

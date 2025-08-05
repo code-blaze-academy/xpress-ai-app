@@ -30,6 +30,7 @@ import CustomButton from "../CustomButton";
 import { getChatHistory } from "../../store/user/api";
 import { ConversationList } from "./ConversationList";
 import useUserStore from "../../hooks/storage/userStore";
+import { Link as RouterLink } from "react-router-dom";
 
 
 export default function CollapsibleSidebar() {
@@ -125,6 +126,8 @@ const handleToggle = () => {
                 mb={4}
                 display="flex"
                 justifyContent="flex-start"
+                as={RouterLink}
+                to="/dashboard"
               />
               <ConversationList
                 isLoading={isLoading}

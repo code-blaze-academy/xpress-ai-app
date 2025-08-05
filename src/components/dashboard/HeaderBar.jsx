@@ -12,21 +12,25 @@ import {
   useDisclosure,
   Text,
   useClipboard,
-  useToast
+  useToast,
+  chakra
 } from "@chakra-ui/react";
-import { FiShare2 } from "react-icons/fi";
 import useUserStore from "../../hooks/storage/userStore";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../CustomButton";
 import { CustomModal } from "./CustomModal";
+import ShareIconComponent from "../../assets/icons/ShareIcon";
+
 
 export const  HeaderBar = () => {
+  const chatUrl = window.location.href;
   const navigate = useNavigate();
   const { user: userData ,logout} = useUserStore((state) => state);
   const { user } = userData;
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { onCopy } = useClipboard(window.location.href);
+  const { onCopy } = useClipboard(chatUrl);
   const toast = useToast();
+  const ShareIcon = chakra(ShareIconComponent);
 
   const handleLogout = () => {
     logout();
@@ -58,8 +62,9 @@ export const  HeaderBar = () => {
       <Flex align="center" gap={2}>
         <IconButton 
         onClick={onOpen}
-        icon={<FiShare2 />} 
+        icon={<ShareIcon w={{base:"18px", lg:"24px"}} h={{base:"18px",lg:"24px"}}/>} 
         aria-label="Share" variant="ghost"
+        title="hii"
          />
          <CustomModal 
          isOpen={isOpen}
@@ -73,7 +78,10 @@ export const  HeaderBar = () => {
          justifyContent={"center"}
          alignItems={"center"}
          >
-          <Text>https://expressai.app/how_can_i_go_about_/share..</Text>
+          <Text 
+          wordBreak={"break-all"}
+          fontSize={"18px"}
+          >{chatUrl}</Text>
           <CustomButton
           title="Copy Link"
           onClick={handleCopy}
