@@ -128,6 +128,9 @@ export const ForgotPassword = () => {
           p={8}
         >
           <Stack spacing={"20px"}>
+            <Heading as={"h3"} fontSize={{ base: "24", lg: "32px" }}>
+              Forgotten Password ?{" "}
+            </Heading>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
               <Input
